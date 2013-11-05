@@ -16,10 +16,17 @@ class BatchAction
      */
     protected $processingRoute;
 
-    public function __construct($name, $processingRoute)
+    /**
+     * Parameters of route to controller that will process the operation.
+     * @var string
+     */
+    protected $processingRouteParams;
+
+    public function __construct($name, $processingRoute, $processingRouteParams)
     {
         $this->name = $name;
         $this->processingRoute;
+        $this->processingRouteParams = $processingRouteParams;
     }
 
     /**
@@ -68,5 +75,15 @@ class BatchAction
         $this->processingRoute = $processingRoute;
 
         return $this;
+    }
+
+    /**
+     * Gets the Parameters of route to controller that will process the operation..
+     *
+     * @return string
+     */
+    public function getProcessingRouteParams()
+    {
+        return $this->processingRouteParams;
     }
 }

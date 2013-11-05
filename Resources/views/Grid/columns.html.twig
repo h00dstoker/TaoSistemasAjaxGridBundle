@@ -1,0 +1,49 @@
+{% set sort_direction = '' %}
+{% set sort_column = '' %}
+
+{% if grid.sortedDirection is defined %}
+    {% set sort_direction = grid.sortedDirection %}
+{% endif %}
+
+{% if grid.sortedColumn is defined %}
+    {% set sort_column = grid.sortedColumn %}
+{% endif %}
+
+{% for col in columns %}
+    {% set sorted = '' %}
+
+    {% if sort_column == col.name %}
+        {% set sorted = 'sorted' %}
+    {% endif %}
+
+    <th {{ block('attr') }}  class="sortable_col {{ sorted }} {{ sort_direction }} {{ block('attr_class') }}">
+
+        {% if col.sortable == true %}
+           <a href="javascript: void(0)" onclick="tao_grid_set_sort_column(this,'{{ col.name }}', '{{ sort_direction }}')">{{ col.title|raw }}</a>
+        {% else %}
+            {{ col.title|raw }}        
+        {% endif %}
+
+    </th>
+
+{% endfor %}
+
+
+{% block attr %}
+    {% if col.attr is defined %}
+        {% for attr, value in col.attr %}
+            {% if attr != 'class' %}
+                {{ attr }}="{{ value }}"
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+{% block attr_class %}
+    {% if col.attr is defined %}
+        {% if col.attr.class is defined %}
+            {{ col.attr.class }}
+        {% endif %}
+    {% endif %}
+{% endblock %}

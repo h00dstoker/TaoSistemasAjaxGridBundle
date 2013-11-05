@@ -24,7 +24,30 @@ class Grid
      */
     protected $batchesActions;
 
-    
+    protected $sortedColumn;
+
+    protected $sortedDirection;
+
+    public function __construct(Paginator $paginator, Filter $filter = null, $items = null)
+    {
+        $this->paginator = $paginator;
+
+        if($filter)
+            $this->filter = $filter;
+
+        if($items)
+        $this->items = $items;
+
+        $this->columns = new ArrayCollection();
+        $this->batchesActions = new ArrayCollection();
+    }
+
+    public function generateView()
+    {
+        $this->paginator->generatePaginator();
+        $this->filter->generateFilter();
+    }
+
 
     /**
      * Gets the value of items.
@@ -115,11 +138,24 @@ class Grid
      *
      * @return self
      */
-    public function setColumns(Doctrine\Common\Collections\ArrayCollection; $columns)
+    public function setColumns(Doctrine\Common\Collections\ArrayCollection $columns)
     {
         $this->columns = $columns;
 
         return $this;
+    }
+
+    public function addColumn($name, $title, $sortable = false, $size = null, $htmlAttributes = array())
+    {
+        $column = new Column($name, $title, $sortable, $size = null, $htmlAttributes);
+        $this->columns->add($column);
+
+        return $this;
+    }
+
+    public function removeColumn($columnOrName)
+    {
+        $this->columns->remove($columnOrName);
     }
 
     /**
@@ -139,9 +175,68 @@ class Grid
      *
      * @return self
      */
-    public function setBatchesActions(Doctrine\Common\Collections\ArrayCollection; $batchesActions)
+    public function setBatchesActions(Doctrine\Common\Collections\ArrayCollection $batchesActions)
     {
         $this->batchesActions = $batchesActions;
+
+        return $this;
+    }
+
+    public function addBatchAction($name, $routeProccess, $routeProccessParams = array())
+    {
+        $batch = new BatchAction($name, $routeProccess, $routeProccessParams);
+        $this->batchesActions->add($batch);
+    }
+
+    public function removeBatchAction($batchActionOrName)
+    {
+        $this->batchesActions->remove($batchActionOrName);
+    }
+
+    /**
+     * Gets the value of sortedColumn.
+     *
+     * @return mixed
+     */
+    public function getSortedColumn()
+    {
+        return $this->sortedColumn;
+    }
+
+    /**
+     * Sets the value of sortedColumn.
+     *
+     * @param mixed $sortedColumn the sorted column
+     *
+     * @return self
+     */
+    public function setSortedColumn($sortedColumn)
+    {
+        $this->sortedColumn = $sortedColumn;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of sortedDirection.
+     *
+     * @return mixed
+     */
+    public function getSortedDirection()
+    {
+        return $this->sortedDirection;
+    }
+
+    /**
+     * Sets the value of sortedDirection.
+     *
+     * @param mixed $sortedDirection the sorted direction
+     *
+     * @return self
+     */
+    public function setSortedDirection($sortedDirection)
+    {
+        $this->sortedDirection = $sortedDirection;
 
         return $this;
     }

@@ -1,0 +1,24 @@
+<div>
+    <ul class="pagination">
+        <li>
+            <a href="javascript: void(0)" onclick="tao_grid_set_page(this,1)">
+                {{ pager.items }} itens | {{ pager.pages }} p&aacute;ginas
+            </a>
+        </li>
+        {% if ( pager.currentPage > 1 ) %}
+            <li><a href="javascript: void(0)" onclick="tao_grid_set_page(this,1)">primeira</a></li>
+            <li><a href="javascript: void(0)" onclick="tao_grid_set_page(this,{{ pager.currentPage - 1}})">anterior</a></li>
+        {% endif %}
+
+        {% for pag in pager.currentPageGroupFirst..pager.currentPageGroupLast %}
+            <li class="{% if pag == pager.currentPage %}active{% endif %}">
+                <a href="javascript: void(0)" onclick="tao_grid_set_page(this, {{ pag }} )">{{ pag }}</a> &nbsp;
+            </li>
+        {% endfor %}
+
+        {% if ( pager.currentPage < pager.pages ) %}
+            <li><a href="javascript: void(0)" onclick="tao_grid_set_page(this, {{ pager.currentPage + 1}})">pr&oacute;xima</a></li>
+            <li><a href="javascript: void(0)" onclick="tao_grid_set_page(this,{{ pager.pages }})">&uacute;ltima</a></li>
+        {% endif %}
+    </ul>
+</div>

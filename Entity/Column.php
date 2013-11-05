@@ -12,11 +12,14 @@ class Column
 
     protected $htmlAttributes;
 
-    public function __construct($name, $title, $sortable = true, $htmlAttributes = array())
+    protected $size;
+
+    public function __construct($name, $title, $sortable = true, $size = null, $htmlAttributes = array())
     {
         $this->name = $name;
         $this->title = $title;
         $this->sortable = $sortable;
+        $this->size = $size;
         $this->htmlAttributes = $htmlAttributes;
     }
 
@@ -112,6 +115,30 @@ class Column
     public function setHtmlAttributes($htmlAttributes)
     {
         $this->htmlAttributes = $htmlAttributes;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of size.
+     *
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * Sets the value of size.
+     *
+     * @param mixed $size the size
+     *
+     * @return self
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
 
         return $this;
     }

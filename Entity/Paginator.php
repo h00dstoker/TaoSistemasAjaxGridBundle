@@ -2,7 +2,7 @@
 
 namespace TaoSistemas\AjaxGridBundle\Entity;
 
-use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\QueryBuilder;
 
 class Paginator
 {
@@ -24,12 +24,12 @@ class Paginator
 
     protected $currentPageGroupLast;
 
-    public function __construct(QueryBuilder $query, $currentPage = 1, $countColumn = '*', $itemsPerPage = 20)
+    public function __construct(QueryBuilder $query, $countColumn = '*', $currentPage = 1, $itemsPerPage = 5)
     {
         $this->query = clone $query;
-        $this->count = $countColumn;
-        $this->page = $pageNumber;
-        $this->itemsPerPage $itemsPerPage;
+        $this->countColumn = $countColumn;
+        $this->currentPage = $currentPage;
+        $this->itemsPerPage = $itemsPerPage;
     }
 
 
@@ -46,7 +46,7 @@ class Paginator
         return $this->query->select("count($this->countColumn)");
     }
 
-    public function generatePager()
+    public function generatePaginator()
     {
         $qb = $this->getCountQuery();
 
@@ -54,9 +54,8 @@ class Paginator
 
         $this->pages = intval( $this->items / $this->itemsPerPage ) + 1;
 
-        $this->currentPage = $page;
         $this->currentPageGroupFirst = max( 1, $this->currentPage - 5);
-        $this->currentPageGroupLast = min( $this->pages, $pager->currentPage + 5 );
+        $this->currentPageGroupLast = min( $this->pages, $this->currentPage + 5 );
     }
 
 
