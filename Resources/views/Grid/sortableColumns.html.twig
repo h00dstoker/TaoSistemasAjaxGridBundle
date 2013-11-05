@@ -1,0 +1,39 @@
+{% for alias, col in gridListColumns %}
+    {% set dir = '' %}
+    {% set sorted = '' %}
+    {% if ( sort_col == alias ) %}
+        {% set sorted = 'sorted' %}
+        {% if sort_dir == 'asc'  %}
+            {% set dir = 'desc' %}
+        {% else %}
+            {% set dir = 'asc' %}
+        {% endif %}
+    {% endif %}
+    <th {{ block('attr') }}  class="sortable_col {{ sorted }} {{ dir }} {{ block('attr_class') }}">
+        {% if col.sort is defined %}
+           <a href="javascript: void(0)" onclick="tao_grid_set_sort_column(this,'{{ alias }}', '{{ dir }}')">{{ col.header | raw }}</a>
+        {% else %}
+            {{ col.header | raw }}        
+        {% endif %}
+    </th>
+{% endfor %}
+
+
+{% block attr %}
+    {% if col.attr is defined %}
+        {% for attr, value in col.attr %}
+            {% if attr != 'class' %}
+                {{ attr }}="{{ value }}"
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+{% block attr_class %}
+    {% if col.attr is defined %}
+        {% if col.attr.class is defined %}
+            {{ col.attr.class }}
+        {% endif %}
+    {% endif %}
+{% endblock %}
