@@ -6,9 +6,11 @@ use Doctrine\ORM\QueryBuilder;
 
 class Paginator
 {
-    protected $query;
+    protected $queryBuilder;
 
-    protected $customQuery;
+    protected $countQueryBuilder;
+
+    protected $customCountQueryBuilder;
 
     protected $countColumn;
 
@@ -24,10 +26,13 @@ class Paginator
 
     protected $currentPageGroupLast;
 
-    public function __construct(QueryBuilder $query, $countColumn = '*', $currentPage = 1, $itemsPerPage = 5)
+    public function __construct(QueryBuilder $query = null, $countColumn = null, $currentPage = 1, $itemsPerPage = 5)
     {
-        $this->query = clone $query;
-        $this->countColumn = $countColumn;
+        $this->queryBuilder = clone $query;
+
+        if($countColumn !== null)
+            $this->countColumn = $countColumn;
+
         $this->currentPage = $currentPage;
         $this->itemsPerPage = $itemsPerPage;
     }
@@ -38,17 +43,24 @@ class Paginator
      * 
      * @return QueryBuilder
      */
-    public function getCountQuery()
+    public function getCountQueryBuilder()
     {
-        if($this->getCustomQuery() !== null)
-            return $this->getCustomQuery();
+        if($this->getCustomCountQueryBuilder() !== null)
+            return $this->getCustomCountQueryBuilder();
 
-        return $this->query->select("count($this->countColumn)");
+        $this->countQueryBuilder = clone $this->queryBuilder;
+
+        if($this->countColumn === null)
+            $countColumn = $this->queryBuilder->getRootAlias();
+        else
+            $countColumn = $this->countColumn;
+
+        return $this->countQueryBuilder->select("count($countColumn)");
     }
 
     public function generatePaginator()
     {
-        $qb = $this->getCountQuery();
+        $qb = $this->getCountQueryBuilder();
 
         $this->items = $qb->getQuery()->getSingleScalarResult();
 
@@ -56,6 +68,10 @@ class Paginator
 
         $this->currentPageGroupFirst = max( 1, $this->currentPage - 5);
         $this->currentPageGroupLast = min( $this->pages, $this->currentPage + 5 );
+
+        $this->queryBuilder->setFirstResult(($this->currentPage - 1) * $this->itemsPerPage)
+                    ->setMaxResults($this->itemsPerPage)
+        ;
     }
 
 
@@ -64,9 +80,9 @@ class Paginator
      *
      * @return mixed
      */
-    public function getQuery()
+    public function getQueryBuilder()
     {
-        return $this->query;
+        return $this->queryBuilder;
     }
 
     /**
@@ -76,33 +92,33 @@ class Paginator
      *
      * @return self
      */
-    public function setQuery(QueryBuilder $query)
+    public function setQueryBuilder(QueryBuilder $query)
     {
-        $this->query = $query;
+        $this->queryBuilder = $query;
 
         return $this;
     }
 
     /**
-     * Gets the value of customQuery.
+     * Gets the value of customCountQuery.
      *
      * @return mixed
      */
-    public function getCustomQuery()
+    public function getCustomCountQueryBuilder()
     {
-        return $this->customQuery;
+        return $this->customCountQueryBuilder;
     }
 
     /**
-     * Sets the value of customQuery.
+     * Sets the value of customCountQuery.
      *
-     * @param mixed $customQuery the custom query
+     * @param mixed $customCountQuery the custom query
      *
      * @return self
      */
-    public function setCustomQuery(QueryBuilder $customQuery)
+    public function setCustomCountQueryBuilder(QueryBuilder $query)
     {
-        $this->customQuery = $customQuery;
+        $this->customCountQueryBuilder = $query;
 
         return $this;
     }

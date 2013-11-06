@@ -28,24 +28,31 @@ class Grid
 
     protected $sortedDirection;
 
-    public function __construct(Paginator $paginator, Filter $filter = null, $items = null)
+    public function __construct(Paginator $paginator, Filter $filter = null)
     {
         $this->paginator = $paginator;
 
         if($filter)
             $this->filter = $filter;
 
-        if($items)
-        $this->items = $items;
-
         $this->columns = new ArrayCollection();
         $this->batchesActions = new ArrayCollection();
+        $this->sortedDirection = 'desc';
     }
 
     public function generateView()
     {
-        $this->paginator->generatePaginator();
         $this->filter->generateFilter();
+
+        $this->paginator->generatePaginator();
+        $qb = $this->items = $this->paginator->getQueryBuilder(); 
+
+        if($this->sortedColumn !== null)
+            $qb->orderBy($this->columns->get($this->sortedColumn)->getColumnName(), $this->sortedDirection);
+
+        $this->items = $qb->getQuery()->getResult();
+
+        return $this;
     }
 
 
@@ -145,9 +152,9 @@ class Grid
         return $this;
     }
 
-    public function addColumn($name, $title, $sortable = false, $size = null, $htmlAttributes = array())
+    public function addColumn($title, $columnName = null, $htmlAttributes = array(), $size = null)
     {
-        $column = new Column($name, $title, $sortable, $size = null, $htmlAttributes);
+        $column = new Column($title, $columnName, $htmlAttributes, $size);
         $this->columns->add($column);
 
         return $this;

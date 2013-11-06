@@ -4,23 +4,24 @@ namespace TaoSistemas\AjaxGridBundle\Entity;
 
 class Column
 {
-    protected $name;
-
     protected $title;
 
-    protected $sortable;
+    /**
+     * Column name of field with query alias, if exists (eg: u.name).
+     * @var string
+     */
+    protected $columnName;
 
     protected $htmlAttributes;
 
     protected $size;
 
-    public function __construct($name, $title, $sortable = true, $size = null, $htmlAttributes = array())
+    public function __construct($title, $columnName = null, $htmlAttributes = array(), $size = null)
     {
-        $this->name = $name;
         $this->title = $title;
-        $this->sortable = $sortable;
-        $this->size = $size;
+        $this->columnName = $columnName;
         $this->htmlAttributes = $htmlAttributes;
+        $this->size = $size;
     }
 
     /**
@@ -28,21 +29,21 @@ class Column
      *
      * @return mixed
      */
-    public function getName()
+    public function getColumnName()
     {
-        return $this->name;
+        return $this->columnName;
     }
 
     /**
      * Sets the value of name.
      *
-     * @param mixed $name the name
+     * @param mixed $columnName the name
      *
      * @return self
      */
-    public function setName($name)
+    public function setColumnName($columnName)
     {
-        $this->name = $name;
+        $this->name = $columnName;
 
         return $this;
     }
@@ -67,30 +68,6 @@ class Column
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of sortable.
-     *
-     * @return mixed
-     */
-    public function getSortable()
-    {
-        return $this->sortable;
-    }
-
-    /**
-     * Sets the value of sortable.
-     *
-     * @param mixed $sortable the sortable
-     *
-     * @return self
-     */
-    public function setSortable($sortable)
-    {
-        $this->sortable = $sortable;
 
         return $this;
     }

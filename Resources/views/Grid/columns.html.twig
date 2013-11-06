@@ -9,17 +9,18 @@
     {% set sort_column = grid.sortedColumn %}
 {% endif %}
 
-{% for col in columns %}
+{% for col in grid.columns %}
     {% set sorted = '' %}
 
-    {% if sort_column == col.name %}
+    {% if sort_column == loop.index0 %} {# sort_column == col.name #}
         {% set sorted = 'sorted' %}
+
     {% endif %}
 
     <th {{ block('attr') }}  class="sortable_col {{ sorted }} {{ sort_direction }} {{ block('attr_class') }}">
 
-        {% if col.sortable == true %}
-           <a href="javascript: void(0)" onclick="tao_grid_set_sort_column(this,'{{ col.name }}', '{{ sort_direction }}')">{{ col.title|raw }}</a>
+        {% if col.columnName is not null %}
+           <a href="javascript: void(0)" onclick="tao_grid_set_sort_column(this,'{{ loop.index0 }}', '{{ sort_direction }}')">{{ col.title|raw }}</a>
         {% else %}
             {{ col.title|raw }}        
         {% endif %}
