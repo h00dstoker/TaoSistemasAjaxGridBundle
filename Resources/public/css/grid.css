@@ -67,6 +67,9 @@
     
 }
 
+.grid .sort-icon {
+  color: #6F767C;
+}
 
 
 /*.grid .pagination {
@@ -187,11 +190,11 @@
 }
 
 .grid TH.sortable_col.sorted.asc {
-    background-image: url(/bundles/taosistemasajaxgrid/images/sort-ascending.png);
+    /*background-image: url(/bundles/taosistemasajaxgrid/images/sort-ascending.png);*/
 }
 
 .grid TH.sortable_col.sorted.desc {
-    background-image: url(/bundles/taosistemasajaxgrid/images/sort-descending.png);
+    /*background-image: url(/bundles/taosistemasajaxgrid/images/sort-descending.png);*/
 }
 
 

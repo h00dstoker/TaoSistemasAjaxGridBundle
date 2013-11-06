@@ -13,6 +13,7 @@
 
 {% for col in grid.columns %}
     {% set sorted = '' %}
+    {% set sort_icon = '' %}
 
     {% if sort_column == loop.index0 %} {# sort_column == col.name #}
 
@@ -20,8 +21,10 @@
 
         {% if grid.sortedDirection  == 'asc' %}
             {% set sort_direction = 'desc' %}
+            {% set sort_icon = '<span class="glyphicon sort-icon glyphicon glyphicon-sort-by-attributes"></span>' %}
         {% else %}
             {% set sort_direction = 'asc' %}
+            {% set sort_icon = '<span class="glyphicon sort-icon glyphicon-sort-by-attributes-alt"></span>' %}
         {% endif %}
 
 
@@ -30,7 +33,7 @@
     <th {{ block('attr') }}  class="sortable_col {{ sorted }} {{ sort_direction }} {{ block('attr_class') }}">
 
         {% if col.columnName is not null %}
-           <a href="javascript: void(0)" onclick="tao_grid_set_sort_column(this,'{{ loop.index0 }}', '{{ sort_direction }}')">{{ col.title|raw }}</a>
+           <a href="javascript: void(0)" onclick="tao_grid_set_sort_column(this,'{{ loop.index0 }}', '{{ sort_direction }}')">{{ col.title|raw }} {{ sort_icon|raw }}</a>
         {% else %}
             {{ col.title|raw }}        
         {% endif %}
