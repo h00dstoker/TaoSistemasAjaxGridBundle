@@ -58,7 +58,7 @@ class Paginator
         return $this->countQueryBuilder->select("count($countColumn)");
     }
 
-    public function generatePaginator()
+    public function prepare()
     {
         $qb = $this->getCountQueryBuilder();
 

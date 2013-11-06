@@ -1,10 +1,6 @@
 {% set sort_direction = '' %}
 {% set sort_column = '' %}
 
-{% if grid.sortedDirection is defined %}
-    {% set sort_direction = grid.sortedDirection %}
-{% endif %}
-
 {% if grid.sortedColumn is defined %}
     {% set sort_column = grid.sortedColumn %}
 {% endif %}
@@ -13,7 +9,15 @@
     {% set sorted = '' %}
 
     {% if sort_column == loop.index0 %} {# sort_column == col.name #}
+
         {% set sorted = 'sorted' %}
+
+        {% if grid.sortedDirection  == 'asc' %}
+            {% set sort_direction = 'desc' %}
+        {% else %}
+            {% set sort_direction = 'asc' %}
+        {% endif %}
+
 
     {% endif %}
 
@@ -31,8 +35,9 @@
 
 
 {% block attr %}
-    {% if col.attr is defined %}
-        {% for attr, value in col.attr %}
+    {% if col.htmlAttributes is defined %}
+        {#{ dump(col.htmlAttributes) }#}
+        {% for attr, value in col.htmlAttributes %}
             {% if attr != 'class' %}
                 {{ attr }}="{{ value }}"
             {% endif %}
@@ -42,9 +47,9 @@
 
 
 {% block attr_class %}
-    {% if col.attr is defined %}
-        {% if col.attr.class is defined %}
-            {{ col.attr.class }}
+    {% if col.htmlAttributes is defined %}
+        {% if col.htmlAttributes.class is defined %}
+            {{ col.htmlAttributes.class }}
         {% endif %}
     {% endif %}
 {% endblock %}

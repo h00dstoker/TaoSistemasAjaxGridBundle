@@ -69,15 +69,15 @@
 
 
 
-.grid .pagination {
+/*.grid .pagination {
   height: 36px;
   margin: 18px 0;
 }
 .grid .pagination ul {
   display: inline-block;
-  *display: inline;
+  *display: inline;*/
   /* IE7 inline-block hack */
-
+/*
   *zoom: 1;
   margin-left: 0;
   margin-bottom: 0;
@@ -175,7 +175,7 @@
   cursor: default;
 }
 
-
+*/
 .grid TH.sortable_col {
 
 }
@@ -187,11 +187,11 @@
 }
 
 .grid TH.sortable_col.sorted.asc {
-    background-image: url(../images/sort-ascending.png);
+    background-image: url(/bundles/taosistemasajaxgrid/images/sort-ascending.png);
 }
 
 .grid TH.sortable_col.sorted.desc {
-    background-image: url(../images/sort-descending.png);
+    background-image: url(/bundles/taosistemasajaxgrid/images/sort-descending.png);
 }
 
 

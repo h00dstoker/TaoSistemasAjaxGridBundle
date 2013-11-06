@@ -4,8 +4,10 @@ function tao_grid_init( grid_id ) {
     var r0 = $('DIV.batch.' + grid_id );
     var r = r0.closest('DIV.grid');
 
+    tao_grid_init_grid($(r));
+
     r0.find('SELECT').change( tao_grid_selected );
-    r0.find('A.fancybox').fancybox({'width': 800, 'height': 300});
+    //r0.find('A.fancybox').fancybox({'width': 800, 'height': 300});
 
     window.setInterval('tao_grid_batch_menu(' + grid_id + ')', 1000);
 }
@@ -73,7 +75,7 @@ function tao_grid_batch_menu( grid_id ) {
         v = items.join('|');
     }
 
-    $.cookie(cookie_name, v, {path:'./'});
+    //$.cookie(cookie_name, v, {path:'./'});
 }
 
 
@@ -91,4 +93,47 @@ function tao_grid_set_sort_column(obj, col, dir) {
     filter.find('INPUT[name=sort_col]').val(col);
     filter.find('INPUT[name=sort_dir]').val(dir);
     filter.submit();
+}
+
+
+
+function tao_grid_init_grid(grid) {
+    grid.find('.filter FORM').ajaxForm(
+        {
+         beforeSubmit: tao_grid_pre_update,
+         success: tao_grid_update,
+         dataType: 'json',
+         type: 'post',
+         contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+        }
+    );
+}
+
+function tao_grid_pre_update(form, options) {
+    var grid = $(form).closest('DIV.grid');
+
+    $(grid).find('.list').addClass('loading');
+}
+
+function tao_grid_update(r, status, xhr, form) {
+    var grid = $(form).closest('DIV.grid');
+
+    //$(grid).find('.filter .form').html( r.h_filtro );
+
+    if(r.status = 'ok') {
+        $(grid).replaceWith(r.html);
+    } else {
+        alert('erro na requisicao');
+    }
+    
+    /*if ( r.h_listagem ) {
+        $(grid).find('.list').html( r.h_listagem ).fadeIn();
+        eventos_fancybox_init();
+    }
+    tao_grid_init_grid($(grid));
+    
+    $('#sc').val(r.sc);
+    $('#sd').val(r.sd);*/
+    
+    $(grid).find('.list').removeClass('loading');
 }

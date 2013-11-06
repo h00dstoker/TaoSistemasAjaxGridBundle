@@ -1,28 +1,50 @@
-<div class="grid-filter">
-    {% block gridFilter %}
-        <h3>Filter</h3>
-    {% endblock gridFilter %}
-</div>
+<div class="grid">
+
+    <div class="filter">
+        {% block gridFilter %}
+
+            <form action="{% block gridFilterAction %}{% endblock gridFilterAction %}" method="post">
+                <input type="text" name="page" value="{{ grid.currentPage }}">
+                <input type="text" name="sort_col" value="{{ grid.sortedColumn }}">
+                <input type="text" name="sort_dir" value="{{ grid.sortedDirection }}">    
+            </form>
+                
+        {% endblock gridFilter %}
+    </div>
 
 
-<div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead>
-           <tr>
-                {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
-            </tr>
-        </thead>
-        {% block gridRows %}
-            <tbody>
-                <tr>
-                    <td></td>
+    <div class="table-responsive">
+        <table class="list table table-striped table-hover">
+            <thead>
+               <tr>
+                    {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
                 </tr>
-            </tbody>
-        {% endblock gridRows %}
-    </table>
+            </thead>
+            {% block gridRows %}
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            {% endblock gridRows %}
+        </table>
+    </div>
+
+    {{ include('TaoSistemasAjaxGridBundle:Grid:batchActions.html.twig') }}
+
+    {{ include('TaoSistemasAjaxGridBundle:Pager:paginator.html.twig') }}
+
+{% block gridJs %}
+
+<script>
+        $( function() {
+                eventos_init();
+        } );
+
+        function eventos_init() {
+        }
+</script>
+
+{% endblock gridJs %}
+
 </div>
-
-{{ include('TaoSistemasAjaxGridBundle:Pager:paginator.html.twig') }}    
-
-
-{#{ include('TaoSistemasAjaxGridBundle:Grid:batch_operations.html.twig') }#}

@@ -5,10 +5,10 @@ namespace TaoSistemas\AjaxGridBundle\Entity;
 class BatchAction
 {
     /**
-     * Name of the batch action;
+     * Title of the batch action;
      * @var string
      */
-    protected $name;
+    protected $title;
 
     /**
      * Route to controller that will process the operation.
@@ -22,33 +22,33 @@ class BatchAction
      */
     protected $processingRouteParams;
 
-    public function __construct($name, $processingRoute, $processingRouteParams)
+    public function __construct($title, $processingRoute, $processingRouteParams)
     {
-        $this->name = $name;
+        $this->title = $title;
         $this->processingRoute;
         $this->processingRouteParams = $processingRouteParams;
     }
 
     /**
-     * Gets the Name of the batch action;.
+     * Gets the title of the batch action;.
      *
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * Sets the Name of the batch action;.
+     * Sets the title of the batch action;.
      *
-     * @param string $name the name
+     * @param string $title the title
      *
      * @return self
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }

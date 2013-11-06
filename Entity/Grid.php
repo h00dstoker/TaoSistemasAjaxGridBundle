@@ -22,7 +22,7 @@ class Grid
      * Array of batches actions.
      * @var Doctrine\Common\Collections\ArrayCollection;
      */
-    protected $batchesActions;
+    protected $batchActions;
 
     protected $sortedColumn;
 
@@ -36,15 +36,16 @@ class Grid
             $this->filter = $filter;
 
         $this->columns = new ArrayCollection();
-        $this->batchesActions = new ArrayCollection();
+        $this->batchActions = new ArrayCollection();
+        $this->currentPage = 1;
         $this->sortedDirection = 'desc';
     }
 
-    public function generateView()
+    public function prepare()
     {
-        $this->filter->generateFilter();
+        $this->filter->prepare();
 
-        $this->paginator->generatePaginator();
+        $this->paginator->prepare();
         $qb = $this->items = $this->paginator->getQueryBuilder(); 
 
         if($this->sortedColumn !== null)
@@ -166,38 +167,38 @@ class Grid
     }
 
     /**
-     * Gets the Array of batches actions..
+     * Gets the Array of batche actions..
      *
      * @return Doctrine\Common\Collections\ArrayCollection;
      */
-    public function getBatchesActions()
+    public function getBatchActions()
     {
-        return $this->batchesActions;
+        return $this->batchActions;
     }
 
     /**
      * Sets the Array of batches actions..
      *
-     * @param Doctrine\Common\Collections\ArrayCollection; $batchesActions the batches actions
+     * @param Doctrine\Common\Collections\ArrayCollection; $batchActions the batches actions
      *
      * @return self
      */
-    public function setBatchesActions(Doctrine\Common\Collections\ArrayCollection $batchesActions)
+    public function setBatchActions(Doctrine\Common\Collections\ArrayCollection $batchActions)
     {
-        $this->batchesActions = $batchesActions;
+        $this->batchActions = $batchActions;
 
         return $this;
     }
 
-    public function addBatchAction($name, $routeProccess, $routeProccessParams = array())
+    public function addBatchAction($title, $routeProccess, $routeProccessParams = array())
     {
-        $batch = new BatchAction($name, $routeProccess, $routeProccessParams);
-        $this->batchesActions->add($batch);
+        $batch = new BatchAction($title, $routeProccess, $routeProccessParams);
+        $this->batchActions->add($batch);
     }
 
     public function removeBatchAction($batchActionOrName)
     {
-        $this->batchesActions->remove($batchActionOrName);
+        $this->batchActions->remove($batchActionOrName);
     }
 
     /**
@@ -244,6 +245,30 @@ class Grid
     public function setSortedDirection($sortedDirection)
     {
         $this->sortedDirection = $sortedDirection;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of currentPage.
+     *
+     * @return mixed
+     */
+    public function getCurrentPage()
+    {
+        $this->paginator->getCurrentPage();
+    }
+
+    /**
+     * Sets the value of currentPage.
+     *
+     * @param mixed $currentPage the current page
+     *
+     * @return self
+     */
+    public function setCurrentPage($currentPage)
+    {
+        $this->paginator->setCurrentPage($currentPage);
 
         return $this;
     }

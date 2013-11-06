@@ -1,0 +1,37 @@
+{%  set prefix = random(999999) %}
+
+<script>
+    $( function() {
+        tao_grid_init({{ prefix }});
+    });
+</script>
+
+<div class="batch {{ prefix }}">
+    <div class="sel">
+
+    </div>
+
+    <div class="all_filtered">
+        <input type="checkbox" id="{{prefix}}_all_filtered" class="all_filtered"> <label for="{{prefix}}_all_filtered">com todos os filtrados</label>
+    </div>
+
+    <div class="ops">
+        com selecionados
+        <select class="op">
+            <option value="">--- selecione</option>
+            {% for action in grid.batchActions %}
+
+                <option value='{"title": "{{ action.title }}", "href": "{#{ action.url }#}"}'>{{action.title}}</option>
+            {% endfor %}
+        </select>
+
+        <div align="right">
+            <a href="javascript:void(0)" onclick="tao_grid_remove_selection({{ prefix }})">desmarcar itens</a>
+        </div>
+        <a href="#" class="trigger fancybox iframe" style="display:none"></a>
+    </div>
+</div>
+
+
+
+
