@@ -5,6 +5,12 @@
     {% set sort_column = grid.sortedColumn %}
 {% endif %}
 
+{% if grid.batchActions|length > 0 and grid.rowIdentifier is not empty %}
+    <th style="width: 10px;">
+        <input type="checkbox" class="check_all" name="all">
+    </th>
+{% endif %}
+
 {% for col in grid.columns %}
     {% set sorted = '' %}
 

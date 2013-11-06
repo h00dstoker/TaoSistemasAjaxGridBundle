@@ -14,19 +14,19 @@ class BatchAction
      * Route to controller that will process the operation.
      * @var string
      */
-    protected $processingRoute;
+    protected $route;
 
     /**
      * Parameters of route to controller that will process the operation.
      * @var string
      */
-    protected $processingRouteParams;
+    protected $routeParams;
 
-    public function __construct($title, $processingRoute, $processingRouteParams)
+    public function __construct($title, $route, $routeParams)
     {
         $this->title = $title;
-        $this->processingRoute;
-        $this->processingRouteParams = $processingRouteParams;
+        $this->route = $route;
+        $this->routeParams = $routeParams;
     }
 
     /**
@@ -53,26 +53,27 @@ class BatchAction
         return $this;
     }
 
+
     /**
      * Gets the Route to controller that will process the operation..
      *
      * @return string
      */
-    public function getProcessingRoute()
+    public function getRoute()
     {
-        return $this->processingRoute;
+        return $this->route;
     }
 
     /**
      * Sets the Route to controller that will process the operation..
      *
-     * @param string $processingRoute the processing route
+     * @param string $route the route
      *
      * @return self
      */
-    public function setProcessingRoute($processingRoute)
+    public function setRoute($route)
     {
-        $this->processingRoute = $processingRoute;
+        $this->route = $route;
 
         return $this;
     }
@@ -82,8 +83,22 @@ class BatchAction
      *
      * @return string
      */
-    public function getProcessingRouteParams()
+    public function getRouteParams()
     {
-        return $this->processingRouteParams;
+        return $this->routeParams;
+    }
+
+    /**
+     * Sets the Parameters of route to controller that will process the operation..
+     *
+     * @param string $routeParams the route params
+     *
+     * @return self
+     */
+    public function setRouteParams($routeParams)
+    {
+        $this->routeParams = $routeParams;
+
+        return $this;
     }
 }

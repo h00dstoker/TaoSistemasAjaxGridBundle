@@ -21,7 +21,7 @@ function tao_grid_selected(e) {
 }
 
 function tao_check_all_clicked(e) {
-    $(e.target).closest('DIV.list').find('.item_id').each( function() {
+    $(e.target).closest('DIV.grid').find('.item_id').each( function() {
         this.checked = e.target.checked;
     });
 }
@@ -56,7 +56,7 @@ function tao_grid_batch_menu( grid_id ) {
 
     if ( it_chk > 0 ) {
         r0.find('SELECT.op').val('');
-        r0.find('.sel').html(it_chk + ' ' + ( it_chk == 1 ? ' item' : ' itens' ) );
+        r0.find('.sel').html(it_chk + ' ' + ( it_chk == 1 ? ' item' : ' items' ) );
         r0.fadeIn('slow');
     } else {
         r0.fadeOut('fast');
@@ -75,7 +75,7 @@ function tao_grid_batch_menu( grid_id ) {
         v = items.join('|');
     }
 
-    //$.cookie(cookie_name, v, {path:'./'});
+    $.cookie(cookie_name, v, {path:'./'});
 }
 
 

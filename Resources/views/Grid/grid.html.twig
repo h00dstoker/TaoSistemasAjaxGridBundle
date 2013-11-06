@@ -4,9 +4,9 @@
         {% block gridFilter %}
 
             <form action="{% block gridFilterAction %}{% endblock gridFilterAction %}" method="post">
-                <input type="text" name="page" value="{{ grid.currentPage }}">
-                <input type="text" name="sort_col" value="{{ grid.sortedColumn }}">
-                <input type="text" name="sort_dir" value="{{ grid.sortedDirection }}">    
+                <input type="hidden" name="page" value="{{ grid.currentPage }}">
+                <input type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
+                <input type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
             </form>
                 
         {% endblock gridFilter %}
@@ -33,6 +33,14 @@
     {{ include('TaoSistemasAjaxGridBundle:Grid:batchActions.html.twig') }}
 
     {{ include('TaoSistemasAjaxGridBundle:Pager:paginator.html.twig') }}
+
+{% block checkRow %}
+    {% if item is defined %}
+        {% if grid.batchActions|length > 0 and grid.rowIdentifier is not empty %}
+            <td><input type="checkbox" class="item_id" name="id" value="{{ attribute(item, grid.rowIdentifier) }}"></td>
+        {% endif %}
+    {% endif %}
+{% endblock %}
 
 {% block gridJs %}
 

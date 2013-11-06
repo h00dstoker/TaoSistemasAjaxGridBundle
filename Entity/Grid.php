@@ -28,6 +28,8 @@ class Grid
 
     protected $sortedDirection;
 
+    protected $rowIdentifier;
+
     public function __construct(Paginator $paginator, Filter $filter = null)
     {
         $this->paginator = $paginator;
@@ -190,9 +192,9 @@ class Grid
         return $this;
     }
 
-    public function addBatchAction($title, $routeProccess, $routeProccessParams = array())
+    public function addBatchAction($title, $route, $routeParams = array())
     {
-        $batch = new BatchAction($title, $routeProccess, $routeProccessParams);
+        $batch = new BatchAction($title, $route, $routeParams);
         $this->batchActions->add($batch);
     }
 
@@ -269,6 +271,30 @@ class Grid
     public function setCurrentPage($currentPage)
     {
         $this->paginator->setCurrentPage($currentPage);
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of rowIdentifier.
+     *
+     * @return mixed
+     */
+    public function getRowIdentifier()
+    {
+        return $this->rowIdentifier;
+    }
+
+    /**
+     * Sets the value of rowIdentifier.
+     *
+     * @param mixed $rowIdentifier the row identifier
+     *
+     * @return self
+     */
+    public function setRowIdentifier($rowIdentifier)
+    {
+        $this->rowIdentifier = $rowIdentifier;
 
         return $this;
     }

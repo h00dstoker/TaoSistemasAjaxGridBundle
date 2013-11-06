@@ -12,21 +12,21 @@
     </div>
 
     <div class="all_filtered">
-        <input type="checkbox" id="{{prefix}}_all_filtered" class="all_filtered"> <label for="{{prefix}}_all_filtered">com todos os filtrados</label>
+        <input type="checkbox" id="{{prefix}}_all_filtered" class="all_filtered"> <label for="{{prefix}}_all_filtered">with all results</label>
     </div>
 
     <div class="ops">
-        com selecionados
+        with selected
         <select class="op">
-            <option value="">--- selecione</option>
+            <option value="">--- do action</option>
             {% for action in grid.batchActions %}
 
-                <option value='{"title": "{{ action.title }}", "href": "{#{ action.url }#}"}'>{{action.title}}</option>
+                <option value='{"title": "{{ action.title }}", "href": "{{ url(action.route, action.routeParams) }}"}'>{{action.title}}</option>
             {% endfor %}
         </select>
 
         <div align="right">
-            <a href="javascript:void(0)" onclick="tao_grid_remove_selection({{ prefix }})">desmarcar itens</a>
+            <a href="javascript:void(0)" onclick="tao_grid_remove_selection({{ prefix }})">unmark items</a>
         </div>
         <a href="#" class="trigger fancybox iframe" style="display:none"></a>
     </div>
