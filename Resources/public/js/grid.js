@@ -1,4 +1,5 @@
 var tao_grid_checkall = {};
+var tao_grid_interval = null;
 
 function tao_grid_init( grid_id ) {
     var r0 = $('DIV.batch.' + grid_id );
@@ -9,14 +10,15 @@ function tao_grid_init( grid_id ) {
     r0.find('SELECT').change( tao_grid_selected );
     //r0.find('A.fancybox').fancybox({'width': 800, 'height': 300});
 
-    window.setInterval('tao_grid_batch_menu(' + grid_id + ')', 1000);
+    if(tao_grid_interval == null)
+        tao_grid_interval = window.setInterval('tao_grid_batch_menu(' + grid_id + ')', 1000);
 }
 
 function tao_grid_selected(e) {
     var v = $(e.target).val();
     var o = $.parseJSON(v);
-    $(e.target).closest('.grid').find('A.trigger').attr('href', o['href'] );
-    $(e.target).closest('.grid').find('A.trigger').attr('title', o['title'] );
+    $(e.target).closest('.grid').find('A.trigger').attr('data-frame-src', o['href'] );
+    $(e.target).closest('.grid').find('A.trigger').attr('data-modal-title', o['title'] );
     $(e.target).closest('.grid').find('A.trigger').click();
 }
 
@@ -69,7 +71,9 @@ function tao_grid_batch_menu( grid_id ) {
         cookie_name = 'tao_grid_selected_ids';
     }
 
-    if ( r0.find('INPUT.all_filtered:first').attr('checked') ) {
+    /*console.log(r0.find('INPUT.all_filtered:first').prop('checked'));*/
+
+    if ( r0.find('INPUT.all_filtered:first').prop('checked') ) {
         v = 'all_filtered';
     } else {
         v = items.join('|');
@@ -119,6 +123,12 @@ function tao_grid_update(r, status, xhr, form) {
     var grid = $(form).closest('DIV.grid');
 
     //$(grid).find('.filter .form').html( r.h_filtro );
+    if(tao_grid_interval != null) {
+        window.clearInterval(tao_grid_interval);
+        tao_grid_interval = null;
+    }
+
+
 
     if(r.status = 'ok') {
         $(grid).replaceWith(r.html);

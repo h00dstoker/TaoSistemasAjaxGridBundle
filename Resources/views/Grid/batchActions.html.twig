@@ -12,7 +12,7 @@
     </div>
 
     <div class="all_filtered">
-        <input type="checkbox" id="{{prefix}}_all_filtered" class="all_filtered"> <label for="{{prefix}}_all_filtered">with all results</label>
+        <input type="checkbox" id="{{prefix}}_all_filtered" class="all_filtered" value="1"> <label for="{{prefix}}_all_filtered">with all results</label>
     </div>
 
     <div class="ops">
@@ -28,7 +28,7 @@
         <div align="right">
             <a href="javascript:void(0)" onclick="tao_grid_remove_selection({{ prefix }})">unmark items</a>
         </div>
-        <a href="#" class="trigger fancybox iframe" style="display:none"></a>
+        <a data-modal-title="" data-frame-src="" class="trigger" data-target="#modalFrame" data-toggle="modal" style="display: none;">editar</a>
     </div>
 </div>
 
