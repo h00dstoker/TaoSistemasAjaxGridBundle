@@ -3,11 +3,21 @@
     <div class="filter">
         {% block gridFilter %}
 
-            <form action="{% block gridFilterAction %}{% endblock gridFilterAction %}" method="post">
+            {% block gridFilterStart %}
+                {{ form_start(filter)}} {#<form action="{{ url(app.request.attributes.get('_route')) }}" method="post">#}    
+            {% endblock %}
+
+                {% block gridFilterBody %}
+
+                {% endblock %}
+
                 <input type="hidden" name="page" value="{{ grid.currentPage }}">
                 <input type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
                 <input type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
-            </form>
+            
+            {% block gridFilterEnd %}
+                {{ form_end(filter)}}
+            {% endblock %}
                 
         {% endblock gridFilter %}
     </div>

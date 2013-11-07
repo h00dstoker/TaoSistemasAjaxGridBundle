@@ -2,6 +2,7 @@
 
 namespace TaoSistemas\AjaxGridBundle\Entity;
 
+use TaoSistemas\AjaxGridBundle\Model\FilterInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Grid
@@ -110,7 +111,7 @@ class Grid
     /**
      * Gets the value of filter.
      *
-     * @return mixed
+     * @return Filter|null
      */
     public function getFilter()
     {
@@ -120,11 +121,11 @@ class Grid
     /**
      * Sets the value of filter.
      *
-     * @param mixed $filter the filter
+     * @param Filter $filter the filter
      *
      * @return self
      */
-    public function setFilter($filter)
+    public function setFilter(Filter $filter)
     {
         $this->filter = $filter;
 
