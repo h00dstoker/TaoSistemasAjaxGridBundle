@@ -14,12 +14,28 @@ class Paginator
 
     protected $countColumn;
 
+    /**
+     * Total of pages.
+     * @var int|null
+     */
     protected $pages;
 
+    /**
+     * Total of results items.
+     * @var array|null
+     */
     protected $items;
 
+    /**
+     * Total of items showed per page.
+     * @var int
+     */
     protected $itemsPerPage;
 
+    /**
+     * Current page.
+     * @var int
+     */
     protected $currentPage;
 
     protected $currentPageGroupFirst;

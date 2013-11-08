@@ -7,14 +7,32 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class Grid
 {
+    /**
+     * Identifier of grid. 
+     * @var string
+     */
+    protected $id;
+
+    /**
+     * Items (rows) of grid.
+     * @var ArrayCollection|array
+     */
     protected $items;
 
+    /**
+     * The Paginator component.
+     * @var Paginator
+     */
     protected $paginator;
 
+    /**
+     * The Filter component.
+     * @var Filter
+     */
     protected $filter;
 
     /**
-     * Array of columns.
+     * Array of columns (used to render the header of grid).
      * @var Doctrine\Common\Collections\ArrayCollection;
      */
     protected $columns;
@@ -25,12 +43,30 @@ class Grid
      */
     protected $batchActions;
 
+    /**
+     * Column sorted.
+     * @var string|int
+     */
     protected $sortedColumn;
 
+    /**
+     * Direction of sort (ASC/DESC).
+     * @var string
+     */
     protected $sortedDirection;
 
+    /**
+     * Attribute of item used to identify him (used to render the checkboxes).
+     * @var string
+     */
     protected $rowIdentifier;
 
+    protected $hideFilter;
+
+    /**
+     * @param Paginator $paginator instance of Paginator component.
+     * @param Filter    $filter    instance of Filter component.
+     */
     public function __construct(Paginator $paginator, Filter $filter = null)
     {
         $this->paginator = $paginator;
@@ -42,20 +78,27 @@ class Grid
         $this->batchActions = new ArrayCollection();
         $this->currentPage = 1;
         $this->sortedDirection = 'desc';
+        $this->hideFilter = false;
     }
 
+    /**
+     * Prepares the grid to view.
+     * @return self
+     */
     public function prepare()
     {
         $this->filter->prepare();
-
         $this->paginator->prepare();
 
 
         $qb = $this->items = $this->paginator->getQueryBuilder(); 
 
-        if ( $qb == null ) {
-            $this->items = array();
+        if ($qb == null) {
+
+            $this->items = new ArrayCollection();
+
         } else {
+
             if($this->sortedColumn !== null)
                 $qb->orderBy($this->columns->get($this->sortedColumn)->getColumnName(), $this->sortedDirection);
 
@@ -302,6 +345,54 @@ class Grid
     public function setRowIdentifier($rowIdentifier)
     {
         $this->rowIdentifier = $rowIdentifier;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of id.
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the value of id.
+     *
+     * @param mixed $id the id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of hideFilter.
+     *
+     * @return mixed
+     */
+    public function getHideFilter()
+    {
+        return $this->hideFilter;
+    }
+
+    /**
+     * Sets the value of hideFilter.
+     *
+     * @param mixed $hideFilter the hide filter
+     *
+     * @return self
+     */
+    public function setHideFilter($hideFilter)
+    {
+        $this->hideFilter = $hideFilter;
 
         return $this;
     }

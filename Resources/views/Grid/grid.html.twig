@@ -1,6 +1,6 @@
 <div class="grid">
 
-    <div class="filter">
+    <div class="filter" {% if grid.hideFilter == true%}style="display: none;"{% endif %}>
         {% block gridFilter %}
 
             {% block gridFilterStart %}
@@ -55,17 +55,11 @@
 
 <script>
         $( function() {
-
-
-
-            
-            {% if app.request.method == 'GET' %}
-                $('.grid')
-                    .find('.filter')
-                    .find('FORM').first()
-                    .submit();
-            {% endif %}
+                eventos_init();
         } );
+
+        function eventos_init() {
+        }
 </script>
 
 {% endblock gridJs %}
