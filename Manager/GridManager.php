@@ -8,7 +8,7 @@ use TaoSistemas\AjaxGridBundle\Entity\Grid;
 
 class GridManager
 {
-    public function newGrid($query)
+    public function newGrid($query = null)
     {
         $paginator = new Paginator($query);
         $filter = new Filter();

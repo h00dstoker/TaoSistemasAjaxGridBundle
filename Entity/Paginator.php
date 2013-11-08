@@ -28,7 +28,7 @@ class Paginator
 
     public function __construct(QueryBuilder $query = null, $countColumn = null, $currentPage = 1, $itemsPerPage = 5)
     {
-        $this->queryBuilder = clone $query;
+        $this->queryBuilder = $query ? clone $query : null;
 
         if($countColumn !== null)
             $this->countColumn = $countColumn;
@@ -48,6 +48,8 @@ class Paginator
         if($this->getCustomCountQueryBuilder() !== null)
             return $this->getCustomCountQueryBuilder();
 
+        if ( ! $this->queryBuilder ) return null;
+
         $this->countQueryBuilder = clone $this->queryBuilder;
 
         if($this->countColumn === null)
@@ -61,6 +63,8 @@ class Paginator
     public function prepare()
     {
         $qb = $this->getCountQueryBuilder();
+
+        if ( $qb == null ) return;
 
         $this->items = $qb->getQuery()->getSingleScalarResult();
 

@@ -55,11 +55,17 @@
 
 <script>
         $( function() {
-                eventos_init();
-        } );
 
-        function eventos_init() {
-        }
+
+
+            
+            {% if app.request.method == 'GET' %}
+                $('.grid')
+                    .find('.filter')
+                    .find('FORM').first()
+                    .submit();
+            {% endif %}
+        } );
 </script>
 
 {% endblock gridJs %}

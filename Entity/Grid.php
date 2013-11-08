@@ -49,12 +49,18 @@ class Grid
         $this->filter->prepare();
 
         $this->paginator->prepare();
+
+
         $qb = $this->items = $this->paginator->getQueryBuilder(); 
 
-        if($this->sortedColumn !== null)
-            $qb->orderBy($this->columns->get($this->sortedColumn)->getColumnName(), $this->sortedDirection);
+        if ( $qb == null ) {
+            $this->items = array();
+        } else {
+            if($this->sortedColumn !== null)
+                $qb->orderBy($this->columns->get($this->sortedColumn)->getColumnName(), $this->sortedDirection);
 
-        $this->items = $qb->getQuery()->getResult();
+            $this->items = $qb->getQuery()->getResult();
+        }
 
         return $this;
     }
