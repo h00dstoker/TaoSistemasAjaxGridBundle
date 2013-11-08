@@ -1,11 +1,74 @@
 {%  set prefix = random(999999) %}
 
+<style type="text/css">
+    .grid .sel,
+    .grid div.all_filtered,
+    .grid .ops
+    .grid .unmark {
+        width: auto;
+        margin-right: 40px;
+    }
+
+    .grid .all_filtered {
+        width: auto;
+        margin-right: 0;
+    }
+
+    .grid .unmark {
+        display: inline;
+        margin-left: 40px;
+    }
+
+    .grid .batch {
+        display: none; 
+        background-color: rgb(255, 254, 218); 
+        border-width: 1px 0px; 
+        border-top-style: solid; 
+        border-bottom-style: solid; 
+        border-top-color: rgb(214, 184, 26); 
+        border-bottom-color: rgb(214, 184, 26); 
+        border-top-left-radius: 0px; 
+        border-top-right-radius: 0px; 
+        border-bottom-right-radius: 0px; 
+        border-bottom-left-radius: 0px;
+    }
+</style>
 <script>
     $( function() {
-        tao_grid_init({{ prefix }});
-    });
-</script>
 
+        tao_grid_init({{ prefix }});
+
+        ajax_grid_batch_fix_div_position();
+
+        $(window).resize(function() {
+            ajax_grid_batch_fix_div_position();
+        });
+
+    });
+
+function ajax_grid_batch_fix_div_position() {
+
+    var theader = $('#trfirst');
+    var secondTh = theader.find('th:eq(1)');
+    var theader_position = theader.position();
+
+    var top = theader_position.top;
+    var left = secondTh.position().left;
+    var width = theader.width() - (secondTh.position().left);
+    var height = theader.height();
+
+    var styles = {
+      "top" : top,
+      "left": left,
+      "width": width,
+      "height": height,
+      "position": "absolute"
+    };
+
+    $('.{{ prefix }}').first().css(styles);
+}
+
+</script>
 <div class="batch {{ prefix }}">
     <div class="sel">
 
@@ -25,7 +88,7 @@
             {% endfor %}
         </select>
 
-        <div align="right">
+        <div class="unmark">
             <a href="javascript:void(0)" onclick="tao_grid_remove_selection({{ prefix }})">unmark items</a>
         </div>
         <a data-modal-title="" data-frame-src="" class="trigger" data-target="#modalFrame" data-toggle="modal" style="display: none;">editar</a>
