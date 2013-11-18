@@ -11,9 +11,9 @@
 
                 {% endblock %}
 
-                <input type="hidden" name="page" value="{{ grid.currentPage }}">
-                <input type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
-                <input type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
+                <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
+                <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
+                <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
             
             {% block gridFilterEnd %}
                 {{ form_end(filter)}}
