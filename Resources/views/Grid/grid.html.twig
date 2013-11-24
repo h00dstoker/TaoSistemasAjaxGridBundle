@@ -1,5 +1,6 @@
 <div class="grid">
 
+{% if filter is defined %}
     <div class="filter" {% if grid.hideFilter == true%}style="display: none;"{% endif %}>
         {% block gridFilter %}
 
@@ -22,6 +23,17 @@
         {% endblock gridFilter %}
     </div>
 <br>
+
+{% else %} {# if has no filter defined we need these fields for paginator works #}
+
+    <div class="filter" style="display: none;">
+        <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
+        <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
+        <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
+    </div>
+
+{% endif %}
+
     <div class="table-responsive">
         <table class="list table table-striped table-hover">
             <thead>
