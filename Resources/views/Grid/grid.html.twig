@@ -27,9 +27,11 @@
 {% else %} {# if has no filter defined we need these fields for paginator works #}
 
     <div class="filter" style="display: none;">
-        <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
-        <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
-        <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
+        <form method="post">
+            <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
+            <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
+            <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
+        </form>
     </div>
 
 {% endif %}
