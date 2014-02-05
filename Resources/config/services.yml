@@ -7,4 +7,4 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
     tao_sistemas_ajax_grid.manager:
         class: TaoSistemas\AjaxGridBundle\Manager\GridManager
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [%tao_sistemas_ajax_grid.paginator.itensPerPage%]

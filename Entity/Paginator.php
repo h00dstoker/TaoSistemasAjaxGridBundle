@@ -42,7 +42,7 @@ class Paginator
 
     protected $currentPageGroupLast;
 
-    public function __construct(QueryBuilder $query = null, $countColumn = null, $currentPage = 1, $itemsPerPage = 5)
+    public function __construct($itemsPerPage = 5, QueryBuilder $query = null, $countColumn = null, $currentPage = 1)
     {
         $this->queryBuilder = $query ? clone $query : null;
 
