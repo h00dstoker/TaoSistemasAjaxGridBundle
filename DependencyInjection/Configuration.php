@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet('paginator')
                 ->children()
                     ->scalarNode('items_per_page')->defaultValue(20)->end()
+                    ->scalarNode('default_type')->defaultValue('orm')->end()
                 ->end()
             ->end();
 

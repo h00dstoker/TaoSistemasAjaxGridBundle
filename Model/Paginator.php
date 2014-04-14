@@ -1,18 +1,17 @@
 <?php
 
-namespace TaoSistemas\AjaxGridBundle\Entity;
+namespace TaoSistemas\AjaxGridBundle\Model;
 
+use TaoSistemas\AjaxGridBundle\Model\PaginatorInterface;
 use Doctrine\ORM\QueryBuilder;
 
-class Paginator
+abstract class Paginator implements PaginatorInterface
 {
     protected $queryBuilder;
 
     protected $countQueryBuilder;
 
     protected $customCountQueryBuilder;
-
-    protected $countColumn;
 
     /**
      * Total of pages.
@@ -42,58 +41,32 @@ class Paginator
 
     protected $currentPageGroupLast;
 
-    public function __construct($itemsPerPage = 10, QueryBuilder $query = null, $countColumn = null, $currentPage = 1)
-    {
-        $this->queryBuilder = $query ? clone $query : null;
-
-        if($countColumn !== null)
-            $this->countColumn = $countColumn;
-
-        $this->currentPage = $currentPage;
-        $this->itemsPerPage = $itemsPerPage;
-    }
-
-
     /**
      * Returns the query that will be used to count number of results.
-     * 
+     *
      * @return QueryBuilder
      */
-    public function getCountQueryBuilder()
-    {
-        if($this->getCustomCountQueryBuilder() !== null)
-            return $this->getCustomCountQueryBuilder();
+    abstract public function getCountQueryBuilder();
 
-        if ( ! $this->queryBuilder ) return null;
+    abstract public function countTotalItems();
 
-        $this->countQueryBuilder = clone $this->queryBuilder;
-
-        if($this->countColumn === null)
-            $countColumn = $this->queryBuilder->getRootAlias();
-        else
-            $countColumn = $this->countColumn;
-
-        return $this->countQueryBuilder->select("count($countColumn)");
-    }
+    abstract public function prepareQueryBuilderForGrid();
 
     public function prepare()
     {
-        $qb = $this->getCountQueryBuilder();
+        $itens = $this->countTotalItems();
 
-        if ( $qb == null ) return;
+        if (null == $itens)
+            return;
 
-        $this->items = $qb->getQuery()->getSingleScalarResult();
+        $this->items = $itens;
 
-        $this->pages = intval( $this->items / $this->itemsPerPage ) + 1;
+        $this->pages = intval($this->items / $this->itemsPerPage) + 1;
+        $this->currentPageGroupFirst = max(1, $this->currentPage - 5);
+        $this->currentPageGroupLast = min($this->pages, $this->currentPage + 5);
 
-        $this->currentPageGroupFirst = max( 1, $this->currentPage - 5);
-        $this->currentPageGroupLast = min( $this->pages, $this->currentPage + 5 );
-
-        $this->queryBuilder->setFirstResult(($this->currentPage - 1) * $this->itemsPerPage)
-                    ->setMaxResults($this->itemsPerPage)
-        ;
+        $this->prepareQueryBuilderForGrid();
     }
-
 
     /**
      * Gets the value of query.
@@ -112,7 +85,7 @@ class Paginator
      *
      * @return self
      */
-    public function setQueryBuilder(QueryBuilder $query)
+    public function setQueryBuilder($query)
     {
         $this->queryBuilder = $query;
 
@@ -136,36 +109,13 @@ class Paginator
      *
      * @return self
      */
-    public function setCustomCountQueryBuilder(QueryBuilder $query)
+    public function setCustomCountQueryBuilder($query)
     {
         $this->customCountQueryBuilder = $query;
 
         return $this;
     }
 
-    /**
-     * Gets the value of countColumn.
-     *
-     * @return mixed
-     */
-    public function getCountColumn()
-    {
-        return $this->countColumn;
-    }
-
-    /**
-     * Sets the value of countColumn.
-     *
-     * @param mixed $countColumn the count column
-     *
-     * @return self
-     */
-    public function setCountColumn($countColumn)
-    {
-        $this->countColumn = $countColumn;
-
-        return $this;
-    }
 
     /**
      * Gets the value of pages.
