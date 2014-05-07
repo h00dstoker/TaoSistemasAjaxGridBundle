@@ -5,7 +5,7 @@
         {% block gridFilter %}
 
             {% block gridFilterStart %}
-                {{ form_start(filter)}} {#<form action="{{ url(app.request.attributes.get('_route')) }}" method="post">#}    
+                {{ form_start(filter)}} {#<form action="{{ url(app.request.attributes.get('_route')) }}" method="post">#}
             {% endblock %}
 
                 {% block gridFilterBody %}
@@ -14,15 +14,14 @@
 
                 <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
                 <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
-                <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
-            
+                <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">
+
             {% block gridFilterEnd %}
                 {{ form_end(filter)}}
             {% endblock %}
-                
+
         {% endblock gridFilter %}
     </div>
-<br>
 
 {% else %} {# if has no filter defined we need these fields for paginator works #}
 
@@ -30,14 +29,16 @@
         <form method="post">
             <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
             <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
-            <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
+            <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">
         </form>
     </div>
 
 {% endif %}
 
+    <div class='clearfix'></div>
+
     <div class="table-responsive">
-        <table class="list table table-striped table-hover">
+        <table class="list table table-striped table-hover table-bordered">
             <thead>
                <tr id="trfirst">
                     {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
