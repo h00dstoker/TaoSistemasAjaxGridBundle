@@ -68,7 +68,7 @@ class PaginatorORM extends Paginator implements PaginatorInterface
         $qb = $this->getQueryBuilder();
 
         if (null !== $qb) {
-            if( empty($sortedColumn) > 0 && $sortedColumn->getColumnName() !== null && $sortedDirection !== null)
+            if( ! empty($sortedColumn) && $sortedColumn->getColumnName() !== null && $sortedDirection !== null)
                 $qb->orderBy($sortedColumn->getColumnName(), $sortedDirection);
 
             $items = $qb->getQuery()->getResult();
