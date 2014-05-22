@@ -116,7 +116,17 @@ function tao_grid_init_grid(grid) {
 function tao_grid_pre_update(form, options) {
     var grid = $(form).closest('DIV.grid');
 
+    tao_grid_add_message_loading(grid);
+}
+
+function tao_grid_add_message_loading(grid) {
+    console.log('tao_grid_add_message_loading ERRADO');
     $(grid).find('.list').addClass('loading');
+}
+
+function tao_grid_remove_message_loading(grid) {
+    console.log('tao_grid_remove_message_loading ERRADO');
+    $(grid).find('.list').removeClass('loading');
 }
 
 function tao_grid_update(r, status, xhr, form) {
@@ -135,15 +145,15 @@ function tao_grid_update(r, status, xhr, form) {
     } else {
         alert('erro na requisicao');
     }
-    
+
     /*if ( r.h_listagem ) {
         $(grid).find('.list').html( r.h_listagem ).fadeIn();
         eventos_fancybox_init();
     }
     tao_grid_init_grid($(grid));
-    
+
     $('#sc').val(r.sc);
     $('#sd').val(r.sd);*/
-    
-    $(grid).find('.list').removeClass('loading');
+
+    tao_grid_remove_message_loading(grid);
 }
