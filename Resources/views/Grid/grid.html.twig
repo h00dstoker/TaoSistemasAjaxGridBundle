@@ -38,7 +38,7 @@
     <div class='clearfix'></div>
 
     <div class="table-responsive">
-        <table class="list table table-striped table-hover table-bordered">
+        <table class="{{ tableClasses|default('list table table-striped table-hover table-bordered') }}">
             <thead>
                <tr id="trfirst">
                     {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
