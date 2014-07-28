@@ -17,7 +17,13 @@ function tao_grid_init( grid_id ) {
 function tao_grid_selected(e) {
     var v = $(e.target).val();
     var o = $.parseJSON(v);
-    $(e.target).closest('.grid').find('A.trigger').attr('data-frame-src', o['href'] );
+    var href = o['href'];
+    var items = tao_grid_get_selected_items($(e.target).closest('div.batch'));
+
+    if (items.length > 0)
+        href += '?tao_grid_selected_ids=' + items;
+
+    $(e.target).closest('.grid').find('A.trigger').attr('data-frame-src', href );
     $(e.target).closest('.grid').find('A.trigger').attr('data-modal-title', o['title'] );
     $(e.target).closest('.grid').find('A.trigger').click();
 }
@@ -37,6 +43,34 @@ function tao_grid_remove_selection( grid_id ) {
     });
 
     r.find('.all_filtered').attr('checked', false);
+}
+
+function tao_grid_get_selected_items($divBatch)
+{
+    //var divBatch = $('DIV.batch.' + grid_id );
+    var grid = $divBatch.closest('DIV.grid');
+
+    var items = [];
+    grid.find('.item_id').each(function() {
+
+        if (this.checked)
+            items.push(this.value);
+
+    });
+
+    it_chk = items.length;
+
+    if (it_chk < 1)
+        return;
+
+    // todos filtrados
+    if ( $divBatch.find('INPUT.all_filtered:first').prop('checked') ) {
+        v = 'all_filtered';
+    } else {
+        v = items.join('|');
+    }
+
+    return v;
 }
 
 function tao_grid_batch_menu( grid_id ) {

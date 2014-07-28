@@ -1,0 +1,4 @@
+batch_actions.with_all_results: 'with all results'
+batch_actions.with_selected: 'with selected'
+batch_actions.do_action: '--- do action'
+batch_actions.unmark_items: 'unmark items'
