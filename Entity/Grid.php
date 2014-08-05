@@ -77,7 +77,6 @@ class Grid
 
         $this->columns = new ArrayCollection();
         $this->batchActions = new ArrayCollection();
-        $this->currentPage = 1;
         $this->sortedDirection = 'desc';
         $this->hideFilter = false;
     }
@@ -296,7 +295,7 @@ class Grid
      */
     public function getCurrentPage()
     {
-        $this->paginator->getCurrentPage();
+        return $this->paginator->getCurrentPage();
     }
 
     /**

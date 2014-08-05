@@ -35,7 +35,7 @@ abstract class Paginator implements PaginatorInterface
      * Current page.
      * @var int
      */
-    protected $currentPage;
+    protected $currentPage = 1;
 
     protected $currentPageGroupFirst;
 
