@@ -61,7 +61,7 @@ abstract class Paginator implements PaginatorInterface
 
         $this->items = $itens;
 
-        $this->pages = intval($this->items / $this->itemsPerPage) + 1;
+        $this->pages = ceil($this->items / $this->itemsPerPage);
         $this->currentPageGroupFirst = max(1, $this->currentPage - 5);
         $this->currentPageGroupLast = min($this->pages, $this->currentPage + 5);
 
