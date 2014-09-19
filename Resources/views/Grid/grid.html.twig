@@ -22,7 +22,6 @@
 
         {% endblock gridFilter %}
     </div>
-<br>
 
 {% else %} {# if has no filter defined we need these fields for paginator works #}
 
@@ -36,8 +35,10 @@
 
 {% endif %}
 
+    <div class='clearfix'></div>
+
     <div class="table-responsive">
-        <table class="list table table-striped table-hover">
+        <table class="{{ tableClasses|default('list table table-striped table-hover table-bordered') }}">
             <thead>
                <tr id="trfirst">
                     {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
@@ -67,16 +68,14 @@
     {% endif %}
 {% endblock %}
 
+
 {% block gridJs %}
 
-<script>
+<script type="text/javascript">
+    /*$(function() {
 
-$(function() {
-    //$('.grid').find('form').first().submit();
-});
-
+    });*/
 </script>
 
-{% endblock gridJs %}
 
-</div>
+{% endblock gridJs %}

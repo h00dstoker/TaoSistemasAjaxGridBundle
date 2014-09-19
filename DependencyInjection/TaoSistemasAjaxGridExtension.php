@@ -23,6 +23,7 @@ class TaoSistemasAjaxGridExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('tao_sistemas_ajax_grid.paginator.itensPerPage', $config['paginator']['items_per_page']);
+        $container->setParameter('tao_sistemas_ajax_grid.paginator.defaultType', $config['paginator']['default_type']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

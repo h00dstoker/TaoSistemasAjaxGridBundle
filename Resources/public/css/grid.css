@@ -64,7 +64,7 @@
 
 .grid .head H1 {
     margin: 0;
-    
+
 }
 
 .grid .sort-icon {
@@ -184,7 +184,6 @@
 }
 
 .grid TH.sortable_col.sorted {
-    padding-left: 25px;
     background-repeat: no-repeat;
     background-position: 5px 5px;
 }

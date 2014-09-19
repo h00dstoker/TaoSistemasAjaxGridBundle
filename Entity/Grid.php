@@ -3,6 +3,7 @@
 namespace TaoSistemas\AjaxGridBundle\Entity;
 
 use TaoSistemas\AjaxGridBundle\Model\FilterInterface;
+use TaoSistemas\AjaxGridBundle\Model\PaginatorInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Grid
@@ -75,7 +76,7 @@ class Grid
      * @param Paginator $paginator instance of Paginator component.
      * @param Filter    $filter    instance of Filter component.
      */
-    public function __construct(Paginator $paginator, Filter $filter = null)
+    public function __construct(PaginatorInterface $paginator, Filter $filter = null)
     {
         $this->paginator = $paginator;
 
@@ -84,7 +85,6 @@ class Grid
 
         $this->columns = new ArrayCollection();
         $this->batchActions = new ArrayCollection();
-        $this->currentPage = 1;
         $this->sortedDirection = 'desc';
         $this->hideFilter = false;
     }
@@ -98,20 +98,7 @@ class Grid
         $this->filter->prepare();
         $this->paginator->prepare();
 
-
-        $qb = $this->items = $this->paginator->getQueryBuilder();
-
-        if ($qb == null) {
-
-            $this->items = new ArrayCollection();
-
-        } else {
-
-            if($this->sortedColumn !== null)
-                $qb->orderBy($this->columns->get($this->sortedColumn)->getColumnName(), $this->sortedDirection);
-
-            $this->items = $qb->getQuery()->getResult();
-        }
+        $this->items = $this->paginator->getResultingItems($this->columns->get($this->sortedColumn), $this->sortedDirection);
 
         return $this;
     }
@@ -316,7 +303,7 @@ class Grid
      */
     public function getCurrentPage()
     {
-        $this->paginator->getCurrentPage();
+        return $this->paginator->getCurrentPage();
     }
 
     /**
