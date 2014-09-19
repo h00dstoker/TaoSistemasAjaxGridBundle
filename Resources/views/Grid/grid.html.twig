@@ -5,7 +5,7 @@
         {% block gridFilter %}
 
             {% block gridFilterStart %}
-                {{ form_start(filter)}} {#<form action="{{ url(app.request.attributes.get('_route')) }}" method="post">#}    
+                {{ form_start(filter)}} {#<form action="{{ url(app.request.attributes.get('_route')) }}" method="post">#}
             {% endblock %}
 
                 {% block gridFilterBody %}
@@ -14,12 +14,12 @@
 
                 <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
                 <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
-                <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
-            
+                <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">
+
             {% block gridFilterEnd %}
                 {{ form_end(filter)}}
             {% endblock %}
-                
+
         {% endblock gridFilter %}
     </div>
 <br>
@@ -30,7 +30,7 @@
         <form method="post">
             <input class="not-clearable" type="hidden" name="page" value="{{ grid.currentPage }}">
             <input class="not-clearable" type="hidden" name="sort_col" value="{{ grid.sortedColumn }}">
-            <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">    
+            <input class="not-clearable" type="hidden" name="sort_dir" value="{{ grid.sortedDirection }}">
         </form>
     </div>
 
@@ -55,7 +55,9 @@
 
     {{ include('TaoSistemasAjaxGridBundle:Grid:batchActions.html.twig') }}
 
-    {{ include('TaoSistemasAjaxGridBundle:Pager:paginator.html.twig') }}
+    {% if grid.hidePaginator == false %}
+        {{ include('TaoSistemasAjaxGridBundle:Pager:paginator.html.twig') }}
+    {% endif %}
 
 {% block checkRow %}
     {% if item is defined %}

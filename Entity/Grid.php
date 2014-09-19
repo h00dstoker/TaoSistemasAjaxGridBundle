@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Grid
 {
     /**
-     * Identifier of grid. 
+     * Identifier of grid.
      * @var string
      */
     protected $id;
@@ -61,7 +61,15 @@ class Grid
      */
     protected $rowIdentifier;
 
+    /**
+     * @var boolean
+     */
     protected $hideFilter;
+
+    /**
+     * @var boolean
+     */
+    protected $hidePaginator = false;
 
     /**
      * @param Paginator $paginator instance of Paginator component.
@@ -91,7 +99,7 @@ class Grid
         $this->paginator->prepare();
 
 
-        $qb = $this->items = $this->paginator->getQueryBuilder(); 
+        $qb = $this->items = $this->paginator->getQueryBuilder();
 
         if ($qb == null) {
 
@@ -393,6 +401,30 @@ class Grid
     public function setHideFilter($hideFilter)
     {
         $this->hideFilter = $hideFilter;
+
+        return $this;
+    }
+
+    /**
+     * Gets the value of hidePaginator.
+     *
+     * @return mixed
+     */
+    public function getHidePaginator()
+    {
+        return $this->hidePaginator;
+    }
+
+    /**
+     * Sets the value of hidePaginator.
+     *
+     * @param mixed $hidePaginator the hide paginator
+     *
+     * @return self
+     */
+    public function setHidePaginator($hidePaginator)
+    {
+        $this->hidePaginator = $hidePaginator;
 
         return $this;
     }
