@@ -39,7 +39,7 @@
                 "name": "js-cookie/js-cookie",
                 "version": "1.4.0",
                 "source": {
-                    "url": "git://github.com/js-cookie/js-cookie",
+                    "url": "git@github.com:js-cookie/js-cookie.git",
                     "type": "git",
                     "reference": "v1.4.0"
                 }
