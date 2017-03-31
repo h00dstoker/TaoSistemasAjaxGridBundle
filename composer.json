@@ -36,10 +36,10 @@
         {
             "type": "package",
             "package": {
-                "name": "carhartl/jquery-cookie",
+                "name": "js-cookie/js-cookie",
                 "version": "1.4.0",
                 "source": {
-                    "url": "git://github.com/carhartl/jquery-cookie",
+                    "url": "git://github.com/js-cookie/js-cookie",
                     "type": "git",
                     "reference": "v1.4.0"
                 }
