@@ -37,23 +37,8 @@
 
     <div class='clearfix'></div>
 
-    <div class="table-responsive">
-        <table class="{{ tableClasses|default('list table table-striped table-hover table-bordered') }}">
-            {% block gridRowsHeader %}
-                <thead>
-                   <tr id="trfirst">
-                        {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
-                    </tr>
-                </thead>
-            {% endblock gridRowsHeader %}
-            {% block gridRows %}
-                <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
-                </tbody>
-            {% endblock gridRows %}
-        </table>
+    <div class="table-responsive results">
+        {{ include('TaoSistemasAjaxGridBundle:Grid:results.html.twig') }}
     </div>
 
     {{ include('TaoSistemasAjaxGridBundle:Grid:batchActions.html.twig') }}
