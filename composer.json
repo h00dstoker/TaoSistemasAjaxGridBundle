@@ -1,5 +1,6 @@
 {
     "name": "taosistemas/ajaxgrid",
+    "version": "1.2.0",
     "type": "symfony-bundle",
     "description": "Symfony AjaxGridBundle",
     "keywords": ["grid", "ajax"],
