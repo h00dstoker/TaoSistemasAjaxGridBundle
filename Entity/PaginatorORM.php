@@ -41,7 +41,7 @@ class PaginatorORM extends Paginator implements PaginatorInterface
         else
             $countColumn = $this->countColumn;
 
-        return $this->countQueryBuilder->select("count($countColumn)");
+        return $this->countQueryBuilder->select("count( distinct $countColumn)");
     }
 
     public function countTotalItems()
