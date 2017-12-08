@@ -49,6 +49,7 @@
     });
 
 function ajax_grid_batch_fix_div_position() {
+    if ( ! $( "#trfirst" ).length ) return;
 
     var theader = $('#trfirst');
     var secondTh = theader.find('th:eq(1)');
