@@ -37,24 +37,25 @@
 
     <div class='clearfix'></div>
 
-    {%  block gridResults %}
         <div class="table-responsive results">
-            <table class="{{ tableClasses|default('list table table-striped table-hover table-bordered') }}">
-                {% block gridRowsHeader %}
-                    <thead>
-                    <tr id="trfirst">
-                        {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
-                    </tr>
-                    </thead>
-                {% endblock gridRowsHeader %}
-                {% block gridRows %}
-                    <tbody>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                {% endblock gridRows %}
-            </table>
+            {%  block gridResults %}
+                <table class="{{ tableClasses|default('list table table-striped table-hover table-bordered') }}">
+                    {% block gridRowsHeader %}
+                        <thead>
+                        <tr id="trfirst">
+                            {{ include('TaoSistemasAjaxGridBundle:Grid:columns.html.twig') }}
+                        </tr>
+                        </thead>
+                    {% endblock gridRowsHeader %}
+                    {% block gridRows %}
+                        <tbody>
+                        <tr>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    {% endblock gridRows %}
+                </table>
+            {% endblock gridResults %}
         </div>
 
         {{ include('TaoSistemasAjaxGridBundle:Grid:batchActions.html.twig') }}
@@ -62,7 +63,6 @@
         {% if grid.hidePaginator == false %}
             {{ include('TaoSistemasAjaxGridBundle:Pager:paginator.html.twig') }}
         {% endif %}
-    {% endblock gridResults %}
 
 {% block checkRow %}
     {% if item is defined %}
