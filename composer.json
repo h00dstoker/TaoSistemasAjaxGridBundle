@@ -19,8 +19,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.2",
-        "symfony/framework-bundle": "~2.1",
-        "components/jquery-cookie": "1.4.1"
+        "symfony/framework-bundle": "^3.4",
+        "components/jquery-cookie": "1.4.1.2"
     },
     "require-dev": {
         "twig/twig": "~1.5",
