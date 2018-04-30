@@ -1,4 +1,4 @@
 TaoSistemasAjaxGridBundle
 =========================
 
-ajax grid for symfony2
+ajax grid for symfony3

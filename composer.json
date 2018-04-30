@@ -1,11 +1,11 @@
 {
-    "name": "taosistemas/ajaxgrid",
-    "version": "1.2.0",
+    "name": "evolutto/ajaxgrid",
+    "version": "1.2.1",
     "type": "symfony-bundle",
     "description": "Symfony AjaxGridBundle",
     "keywords": ["grid", "ajax"],
     "homepage": "https://github.com/omar331/TaoSistemasAjaxGridBundle",
-    "license": "GPL 2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Omar Alves",
@@ -14,6 +14,10 @@
         {
             "name": "Thiago Rodrigues",
             "email": "xthiago@gmail.com"
+        },
+        {
+            "name": "Felipe Araujo",
+            "email": "felipearaujo.asti@gmail.com"
         }
     ],
     "minimum-stability": "dev",
