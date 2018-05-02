@@ -8,5 +8,5 @@ services:
     tao_sistemas_ajax_grid.manager:
         class: TaoSistemas\AjaxGridBundle\Manager\GridManager
         arguments:
-            - %tao_sistemas_ajax_grid.paginator.itensPerPage%
-            - %tao_sistemas_ajax_grid.paginator.defaultType%
+            - '%tao_sistemas_ajax_grid.paginator.itensPerPage%'
+            - '%tao_sistemas_ajax_grid.paginator.defaultType%'
